@@ -1,0 +1,43 @@
+
+
+class Solution {
+    public void reorderList(ListNode head) {
+        if(head == null) return;
+        ListNode mid = head, tail = head;
+        while(tail != null && tail.next != null) {
+            mid = mid.next;
+            tail = tail.next.next;
+        }
+        ListNode newL = mid.next;
+        mid.next = null;
+        
+        // reverse newL
+        ListNode tHead = new ListNode(0);
+        ListNode p = newL;
+        
+        while(p != null) {
+            ListNode next = p.next;
+            p.next = tHead.next;
+            tHead.next = p;
+            p = next;
+        }
+        newL = tHead.next;
+        
+        // merge two lists:
+        ListNode p1 = head, p2 = newL, pos = tHead;
+        while(p1 != null && p2 != null) {
+            ListNode tmp = p1.next;
+            pos.next = p1;
+            pos.next.next = p2;
+            
+            p1 = tmp;
+            p2 = p2.next;
+            pos = pos.next.next;
+        }
+        
+        if(p1 != null) pos.next = p1;
+        head = tHead.next;
+    }
+}
+
+// // O(n), O(1)
