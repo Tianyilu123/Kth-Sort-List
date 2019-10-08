@@ -1,0 +1,26 @@
+
+class Solution {
+    private int res = 0;
+    public int kthSmallest(TreeNode root, int k) {
+        Integer totalSize = helper(root, k);
+        return totalSize == null ? res : -1;
+    }
+    
+    private Integer helper(TreeNode root, int k) {
+        if(root == null)
+            return 0;
+        
+        Integer leftSize = helper(root.left, k);
+        if(leftSize == null) {
+            return null;
+        }
+        if(k == leftSize+1) {
+            res = root.val;
+            return null;
+        }
+        Integer rightSize = helper(root.right, k-leftSize-1);
+        return rightSize == null ? null : (leftSize + rightSize + 1);
+    }
+}
+
+//O(n), O(n)
