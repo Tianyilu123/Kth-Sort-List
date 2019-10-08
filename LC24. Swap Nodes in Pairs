@@ -1,0 +1,18 @@
+
+class Solution {
+    public ListNode swapPairs(ListNode head) {
+        ListNode tHead = new ListNode(0);
+        ListNode p = head, pos = tHead;
+        while(p != null && p.next != null) {
+            ListNode next = p.next.next;
+            pos.next = p.next;
+            pos.next.next = p;
+            pos = p;
+            p = next;
+        }
+        pos.next = p;
+        return tHead.next;
+    }
+}
+
+//O(n), O(1)
