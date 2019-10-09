@@ -28,4 +28,4 @@ class Solution {
 }
 
 
-// O(n), O(1);
+// O(m-n+1), O(1);
