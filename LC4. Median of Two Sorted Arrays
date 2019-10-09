@@ -1,1 +1,45 @@
 
+class Solution {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int len1 = 0, len2 = 0;
+        if(nums1 == null && nums2 == null) {
+            return 0.0;
+        }
+        else if(nums1 == null) {
+            len2 = nums2.length;
+        } else if(nums2 == null) {
+            len1 = nums1.length;
+        } else {
+            len1 = nums1.length;
+            len2 = nums2.length;
+        }
+        
+        if((len1 + len2)%2 == 0) {
+            return (double)(findKth(nums1, 0, len1, nums2, 0, len2, (len1 + len2)/2) + 
+                           findKth(nums1,0,len1,nums2,0,len2,(len1 + len2)/2 + 1))/2.0;
+        } else {
+            return (double) findKth(nums1, 0, len1, nums2, 0, len2, (len1 + len2)/2 + 1);
+        }
+    }
+    
+    private int findKth(int[] n1, int begin1, int len1, int[] n2, int begin2, int len2, int k) {
+        if(len1 > len2)
+            return findKth(n2, begin2, len2, n1, begin1, len1, k);
+        if(len1 == 0) return n2[begin2 + k - 1];
+        if(k == 1) return Math.min(n1[begin1], n2[begin2]);
+        
+        int p1 = Math.min(len1, k/2);
+        int p2 = k-p1;
+        int num1 = n1[begin1 + p1 - 1];
+        int num2 = n2[begin2 + p2 - 1];
+        if(num1 == num2) {
+            return num1;
+        } else if(num1 < num2) {
+            return findKth(n1, begin1 + p1, len1-p1, n2, begin2, len2, k-p1);
+        } else {
+            return findKth(n1, begin1, len1, n2, begin2 + p2, len2-p2, k-p2);
+        }
+    }
+}
+
+// O(log(min(m,n)), O(1)
