@@ -1,0 +1,88 @@
+
+// TreeMap - method 1:
+public class Solution {
+    public List<Integer> topKFrequent(int[] nums, int k) {
+        HashMap<Integer, Integer> mp = new HashMap<>();
+        for (int val: nums) {
+            mp.put(val, mp.getOrDefault(val, 0) + 1);
+        }
+        TreeMap<Integer, List<Integer>> freqMap = new TreeMap<>();
+        for (int val: mp.keySet()) {
+            int cur = mp.get(val);
+            if (!freqMap.containsKey(cur)) {
+                freqMap.put(cur, new ArrayList<>());
+            }
+            freqMap.get(cur).add(val);
+        }
+        List<Integer> ans = new ArrayList<>();
+        while (ans.size() < k) {
+            Map.Entry<Integer, List<Integer>> entry = freqMap.pollLastEntry();
+            ans.addAll(entry.getValue());
+        }
+        return ans;
+    }
+}
+
+// O(klogn), O(n)
+
+
+// method 2: bucket sort:
+
+class Solution {
+    public List<Integer> topKFrequent(int[] nums, int k) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for(int num : nums) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+        
+        List<Integer>[] bucket = new List[nums.length+1];
+        for(int num : map.keySet()) {
+            int freq = map.get(num);
+            if(bucket[freq] == null) {
+                bucket[freq] = new ArrayList<>();
+            }
+            bucket[freq].add(num);
+        }
+        
+        List<Integer> res = new ArrayList<>();
+        for(int i = bucket.length-1; i>=0; i--) {
+            int j = 0;
+            while(bucket[i] != null && j < bucket[i].size() && k>0) {
+                res.add(bucket[i].get(j));
+                j++;
+                k--;
+            }
+        }
+        return res;
+    }
+}
+// O(n), O(n);
+
+
+// method 3: PriorityQueue:
+
+class Solution {
+    public List<Integer> topKFrequent(int[] nums, int k) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for(int num : nums) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+        
+        PriorityQueue<Map.Entry<Integer, Integer>> maxHeap = 
+            new PriorityQueue<>((a,b)->(b.getValue()-a.getValue()));
+        
+        for(Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            maxHeap.add(entry);
+        }
+        
+        List<Integer> res = new ArrayList<>();
+        while(res.size() < k) {
+            Map.Entry<Integer, Integer> tmp = maxHeap.poll();
+            res.add(tmp.getKey());
+        }
+        return res;
+    }
+}
+
+// O(klogn), O(n)
+
