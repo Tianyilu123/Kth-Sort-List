@@ -1,0 +1,33 @@
+
+class Solution {
+    public ListNode rotateRight(ListNode head, int k) {
+        if(head ==null || k == 0)
+            return head;
+        
+        ListNode p = head;
+        int count = 1;
+        
+        while(p.next != null) {
+            p = p.next;
+            count++;
+        }
+        
+        int n = count - k%count;
+        int step = 1;
+        p.next = head;
+        
+        p = head;
+        while(step < n) {
+            p = p.next;
+            step++;
+        }
+        
+        ListNode tmp = p.next;
+        p.next = null;
+        
+        return tmp;
+    }
+}
+
+
+// Time O(k%len*N) ~ O(N) Space O(1)
