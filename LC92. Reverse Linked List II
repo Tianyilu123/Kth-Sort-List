@@ -1,0 +1,31 @@
+
+class Solution {
+    public ListNode reverseBetween(ListNode head, int m, int n) {
+        ListNode tHead = new ListNode(0);
+        tHead.next = head;
+        ListNode prev = tHead;
+        int count = 1;
+        
+        while(count < m) {
+            prev = prev.next;
+            count++;
+        }
+        
+        ListNode cur = prev.next;
+        ListNode lastNode = cur;
+        ListNode next = null;
+        
+        while(count++ <= n) {
+            next = cur.next;
+            cur.next = prev.next;
+            prev.next = cur;
+            cur = next;
+        }
+        
+        lastNode.next = next;
+        return tHead.next;
+    }
+}
+
+
+// O(n), O(1);
