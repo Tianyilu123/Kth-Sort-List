@@ -1,22 +1,22 @@
 
-public class Solution {
+class Solution {
     public ListNode insertionSortList(ListNode head) {
         ListNode dummy = new ListNode(0);
-        ListNode pre = head;
-        ListNode cur = head;
-        dummy.next = pre;
-        while(cur != null){
-            if(pre.val > cur.val){
-                pre.next = cur.next;
-                ListNode headN = dummy;
-                while(headN.next != null && headN.next.val < cur.val){
-                    headN = headN.next;
+        dummy.next = head;
+        ListNode prev = head, cur = head;
+        // if(cur == null) return head;
+        while(cur != null) {
+            if(prev.val > cur.val) {
+                ListNode tHead = dummy;
+                while(cur.val > tHead.next.val) {
+                    tHead = tHead.next;
                 }
-                cur.next = headN.next;
-                headN.next = cur;
-                cur = pre.next;
-            }else{
-                pre = cur;
+                prev.next = cur.next;
+                cur.next = tHead.next;
+                tHead.next = cur;
+                cur = prev.next;
+            } else{
+                prev = cur;
                 cur = cur.next;
             }
         }
