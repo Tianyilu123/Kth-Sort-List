@@ -1,0 +1,50 @@
+
+public class Solution {
+    public ListNode sortList(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        
+        ListNode middle = findMiddle(head);
+        ListNode right = middle.next;
+        middle.next = null;
+        
+        return merge(sortList(head), sortList(right));
+    }
+    
+    private ListNode findMiddle(ListNode head) {
+        ListNode fast = head.next;
+        ListNode slow = head;
+        
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        
+        return slow;
+    }
+    
+    private ListNode merge(ListNode left, ListNode right) {
+        ListNode dummy = new ListNode(0);
+        ListNode current = dummy;
+        
+        while (left != null && right != null) {
+            if (left.val < right.val) {
+                current.next = left;
+                left = left.next;
+            } else {
+                current.next = right;
+                right = right.next;
+            }
+            current = current.next;
+        }
+        
+        if (left == null) {
+            current.next = right;
+        } else {
+            current.next = left;
+        }
+        
+        return dummy.next;
+    }
+}
