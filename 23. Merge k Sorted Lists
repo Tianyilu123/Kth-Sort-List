@@ -25,3 +25,7 @@ class Solution {
         }
     }
 }
+
+
+// time: O(nlogK)
+// space: O(1)
