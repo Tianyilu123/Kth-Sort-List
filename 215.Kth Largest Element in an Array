@@ -41,7 +41,7 @@ class Solution {
     }
 }
 
-// O(n), O(1)
+// O(nlogn) - O(n^2), O(1)
 
 
 // method 2: heap:
