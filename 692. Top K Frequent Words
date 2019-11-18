@@ -22,7 +22,6 @@ class Solution {
 
 
 //method 2, min heap
-
 class Solution {
     public List<String> topKFrequent(String[] words, int k) {
         
@@ -37,12 +36,12 @@ class Solution {
         for(Map.Entry<String, Integer> entry: map.entrySet())
         {
             minHeap.offer(entry);
-            if(pq.size()>k)
-                pq.poll();
+            if(minHeap.size()>k)
+                minHeap.poll();
         }
 
-        while(!pq.isEmpty())
-            result.add(0, pq.poll().getKey());
+        while(!minHeap.isEmpty())
+            result.add(0, minHeap.poll().getKey());
         
         return result;
     }
