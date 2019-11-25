@@ -1,4 +1,4 @@
-
+not stable because of swap
 // time: O(nlogn)-O(n^2)
 // space: O(1) without stack, O(logn) - O(n) with stack
 public class QuickSort {
