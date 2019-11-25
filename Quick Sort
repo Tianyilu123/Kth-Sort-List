@@ -1,0 +1,39 @@
+
+// time: O(nlogn)-O(n^2)
+// space: O(1) without stack, O(logn) - O(n) with stack
+public class QuickSort {
+    public int[] QuickSort(int[] array) {
+        if(array == null || array.length <= 1) return array;
+        sort(array, 0, array.length-1);
+        return array;
+    }
+    
+    private void sort(int[] array, int left, int right) {
+        if(left>=right) return;
+        int pivotIdx = partition(array, left, right);
+        sort(array, left, pivotIdx-1);
+        sort(array, pivotIdx+1, right);
+    }
+    
+    private int partition(int[] array, int left, int right) {
+        int pivotIdx = left + (int) Math.random() * (right-left+1);
+        int pivotVal = array[pivotIdx];
+        swap(array, pivotIdx, right);
+        
+        // different start//
+        int leftIdx = left;
+        int rightIdx = right-1;
+        
+        while(leftIdx <= rightIdx) {
+            if(array[leftIdx] < pivotVal) {
+                leftIdx++;
+            } else if(array[rightIdx] >= pivotVal) {
+                rightIdx--;
+            } else {
+                swap(array, leftIdx++, rightIdx--);
+            }
+        }
+        swap(array, leftIdx, right);
+        return leftIdx;
+    }
+}
