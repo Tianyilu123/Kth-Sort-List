@@ -1,4 +1,4 @@
-
+merge sort is stable
 // method 1: time O(nlogn), space (O(nlogn)
 class MergeSort {
     public ArrayList<Integer> MergeSort(ArrayList<Integer> array) {
