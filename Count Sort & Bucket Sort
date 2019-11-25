@@ -1,0 +1,8 @@
+time: O(n)
+space: O(n)
+
+election range is limited
+
+int[] array -> count sort
+List[] (list array) ->bucket sort
+
